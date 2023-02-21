@@ -4,19 +4,18 @@ import { CharactersListComponent } from 'src/app/characters/characters-list/char
 import { CharactersDetailComponent } from 'src/app/characters/characters-detail/characters-detail.component';
 
 const appRoutes: Routes = [
-  {
-    path: '',
-    component: CharactersListComponent,
-  },
-  {
-    path: ':id',
-    component: CharactersDetailComponent,
-  },
+    {
+        path: '',
+        component: CharactersListComponent,
+    },
+    {
+        path: ':id',
+        component: CharactersDetailComponent,
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(appRoutes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(appRoutes)],
+    exports: [RouterModule],
 })
 export class CharactersRoutingModule {}
-

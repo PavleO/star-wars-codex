@@ -1,1 +1,13 @@
-<p>characters-detail works!</p>
+<div *ngIf="charactersService.character$ | async as character else loading">
+    <h1>{{ character?.name }}</h1>
+    <h2>{{ character?.height }}</h2>
+    <h2>{{ character?.mass }}</h2>
+    <h2>{{ character?.birthYear }}</h2>
+    <h2>{{ character?.gender }}</h2>
+    <h2>{{ character?.homeworld }}</h2>
+    <h2>Films</h2>
+    <h3 *ngFor="let filmTitle of character.films">{{ filmTitle }}</h3>
+</div>
+<ng-template #loading>
+    <app-loading-spinner />
+</ng-template>

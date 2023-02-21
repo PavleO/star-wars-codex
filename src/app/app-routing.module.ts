@@ -6,7 +6,9 @@ const appRoutes: Routes = [
     {
         path: 'characters',
         loadChildren: () =>
-            import('./characters/characters.module').then(m => m.CharactersModule),
+            import('./characters/characters.module').then(
+                m => m.CharactersModule
+            ),
     },
 ];
 
