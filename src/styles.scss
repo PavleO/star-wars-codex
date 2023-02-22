@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+@font-face {
+    font-family: star-jedi;
+    src: url(./assets/fonts/starjedi.woff2) format('woff2');
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: star-jedi, Roboto, 'Helvetica Neue', sans-serif;
+}

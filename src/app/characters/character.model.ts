@@ -1,3 +1,13 @@
+export interface FilmFromServer {
+    url: string;
+    title: string;
+}
+
+export interface PlanetFromServer {
+    url: string;
+    name: string;
+}
+
 export interface CharacterFromServer {
     url: string;
     name: string;
@@ -12,6 +22,7 @@ export interface CharacterFromServer {
 export class BasicCharacter {
     public id: number;
     public name: string;
+    public isFavorite = false;
 
     constructor(characterFromServer: CharacterFromServer) {
         //TODO: handle this better

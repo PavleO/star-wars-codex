@@ -4,73 +4,51 @@ import {
     BasicCharacter,
     Character,
     CharacterFromServer,
+    FilmFromServer,
+    PlanetFromServer,
 } from 'src/app/characters/character.model';
 import { tap } from 'rxjs/operators';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CharactersService {
+    private characters: BasicCharacter[] = [];
+    private favoriteCharacters: number[] = [];
+    readonly selectedCharacter$ = new BehaviorSubject<Character | null>(null);
+    readonly characters$ = new BehaviorSubject<BasicCharacter[] | null>(null);
+    readonly charactersCount$ = new BehaviorSubject<number>(0);
+
     constructor(private http: HttpClient) {}
 
-    private singleCharacterSubject = new BehaviorSubject<Character | null>(
-        null
-    );
-    private charactersSubject = new BehaviorSubject<BasicCharacter[] | null>(
-        null
-    );
-
-    private charactersCountSubject = new BehaviorSubject<number>(0);
-
-    public character$ = this.singleCharacterSubject.asObservable();
-    public characters$ = this.charactersSubject.asObservable();
-
-    public charactersCount$ = this.charactersCountSubject.asObservable();
-
     public getCharacter(id: number) {
-        this.singleCharacterSubject.next(null);
-        return this.http
+        this.selectedCharacter$.next(null);
+        this.http
             .get<CharacterFromServer>(`https://swapi.dev/api/people/${id}`)
             .pipe(
                 tap(char => {
-                    const httpRequests: Observable<{
-                        title?: string;
-                        name?: string;
-                        url: string;
-                    }>[] = char.films.map(filmUrl =>
-                        this.http.get<{ title: string; url: string }>(filmUrl)
-                    );
-                    httpRequests.push(
-                        this.http.get<{ name: string; url: string }>(
-                            char.homeworld
-                        )
-                    );
-                    forkJoin(httpRequests).subscribe(allResults =>
-                        this.singleCharacterSubject.next(
-                            new Character({
-                                ...char,
-                                films: char.films.map(
-                                    filmUrl =>
-                                        allResults.find(
-                                            film => film.url === filmUrl
-                                        )?.title ?? ''
-                                ),
-                                homeworld:
-                                    allResults.find(
-                                        homeworld =>
-                                            homeworld.url === char.homeworld
-                                    )?.name ?? '',
-                            })
-                        )
-                    );
+                    forkJoin([
+                        ...char.films.map(filmUrl =>
+                            this.http.get<FilmFromServer>(filmUrl)
+                        ),
+                        this.http.get<PlanetFromServer>(char.homeworld),
+                    ]).subscribe(allResults => {
+                        this.selectedCharacter$.next(
+                            this.parseServerDataAndCreateCharacter(
+                                allResults,
+                                char
+                            )
+                        );
+                    });
                 })
-            );
+            )
+            .subscribe();
     }
     public getCharacters(page?: number, nameFilter?: string) {
-        this.charactersSubject.next(null);
-        this.charactersCountSubject.next(0);
-        return this.http
+        this.characters$.next(null);
+        this.charactersCount$.next(0);
+        this.http
             .get<{ results: CharacterFromServer[]; count: number }>(
                 `https://swapi.dev/api/people/?${page ? `page=${page}&` : ''}${
                     nameFilter ? `search=${nameFilter}` : ''
@@ -78,11 +56,76 @@ export class CharactersService {
             )
             .pipe(
                 tap(response => {
-                    this.charactersSubject.next(
-                        response.results.map(char => new BasicCharacter(char))
-                    );
-                    this.charactersCountSubject.next(response.count);
+                    this.characters = response.results.map(char => {
+                        const basicChar = new BasicCharacter(char);
+                        basicChar.isFavorite = this.checkIfCharacterIsFavorite(
+                            basicChar.id
+                        );
+                        return basicChar;
+                    });
+                    this.characters$.next([...this.characters]);
+                    this.charactersCount$.next(response.count);
                 })
-            );
+            )
+            .subscribe();
+    }
+
+    toggleFavoriteCharacter(id: number) {
+        const index = this.favoriteCharacters.indexOf(id);
+        const character = this.characters.find(
+            character => character.id === id
+        );
+        if (index > -1) {
+            this.favoriteCharacters.splice(index, 1);
+            if (character) {
+                character.isFavorite = false;
+            }
+        } else {
+            this.favoriteCharacters.push(id);
+            if (character) {
+                character.isFavorite = true;
+            }
+        }
+        this.characters$.next([...this.characters]);
+    }
+
+    checkIfCharacterIsFavorite(charId: number): boolean {
+        return !!this.favoriteCharacters.find(
+            favoriteCharId => charId === favoriteCharId
+        );
+    }
+
+    private instanceOfFilm(data: object): data is FilmFromServer {
+        return 'title' in data;
+    }
+
+    private instanceOfPlanet(data: object): data is PlanetFromServer {
+        return 'name' in data;
+    }
+
+    private parseServerDataAndCreateCharacter(
+        data: (FilmFromServer | PlanetFromServer)[],
+        char: CharacterFromServer
+    ) {
+        const filmNames = data
+            .filter(filmOrHomeWorld => this.instanceOfFilm(filmOrHomeWorld))
+            .map(film => (film as FilmFromServer).title ?? '');
+
+        const homeWorldName =
+            (
+                data.find(filmOrHomeWorld =>
+                    this.instanceOfPlanet(filmOrHomeWorld)
+                ) as PlanetFromServer
+            )?.name ?? '';
+
+        const character = new Character({
+            ...char,
+            films: filmNames,
+            homeworld: homeWorldName,
+        });
+
+        character.isFavorite = this.checkIfCharacterIsFavorite(character.id);
+
+        return character;
     }
 }

@@ -6,9 +6,7 @@
         (keydown.enter)="filterCharacters(searchTerm)" />
     <mat-icon matPrefix (click)="filterCharacters(searchTerm)">search</mat-icon>
 </mat-form-field>
-<mat-list
-    role="list"
-    *ngIf="charactersService.characters$ | async as characters; else loading">
+<mat-list role="list" *ngIf="characters | async as characters; else loading">
     <mat-list-item
         (click)="goToDetails(character.id)"
         role="listitem"
@@ -16,7 +14,8 @@
         >{{ character.name }}
         <button
             (click)="toggleFavorite($event, character.id)"
-            mat-icon-butßton
+            mat-icon-button
+            [color]="character.isFavorite ? 'warn' : 'primary'"
             aria-label="Button for putting character to favorites">
             <mat-icon>favorite</mat-icon>
         </button></mat-list-item

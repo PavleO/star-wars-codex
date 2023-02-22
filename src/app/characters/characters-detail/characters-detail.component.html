@@ -1,4 +1,4 @@
-<div *ngIf="charactersService.character$ | async as character else loading">
+<div *ngIf="selectedCharacter | async as character; else loading">
     <h1>{{ character?.name }}</h1>
     <h2>{{ character?.height }}</h2>
     <h2>{{ character?.mass }}</h2>
