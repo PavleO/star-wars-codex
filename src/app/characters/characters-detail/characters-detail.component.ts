@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { CharactersService } from 'src/app/characters/characters.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,12 +16,21 @@ export class CharactersDetailComponent implements OnInit {
     constructor(
         public charactersService: CharactersService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private location: Location
     ) {}
 
     ngOnInit() {
         this.selectedCharacter = this.charactersService.selectedCharacter$;
         const id = +this.route.snapshot.params['id'];
         this.charactersService.getCharacter(id);
+    }
+
+    toggleFavorite(characterId: number) {
+        this.charactersService.toggleFavoriteCharacter(characterId);
+    }
+
+    navigateBack() {
+        this.location.back();
     }
 }

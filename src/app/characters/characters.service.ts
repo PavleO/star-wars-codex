@@ -17,6 +17,7 @@ import { AppConstants } from 'src/app/shared/app-constants';
 })
 export class CharactersService {
     private characters: BasicCharacter[] = [];
+    private selectedCharacter: Character | null = null;
     private favoriteCharacters: number[] = [];
     readonly selectedCharacter$ = new BehaviorSubject<Character | null>(null);
     readonly characters$ = new BehaviorSubject<BasicCharacter[] | null>(null);
@@ -48,12 +49,12 @@ export class CharactersService {
                         ),
                         this.http.get<PlanetFromServer>(char.homeworld),
                     ]).subscribe(allResults => {
-                        this.selectedCharacter$.next(
+                        this.selectedCharacter =
                             this.parseServerDataAndCreateCharacter(
                                 allResults,
                                 char
-                            )
-                        );
+                            );
+                        this.selectedCharacter$.next(this.selectedCharacter);
                     });
                 })
             )
@@ -104,6 +105,11 @@ export class CharactersService {
             AppConstants.favoriteStarWarsCharactersLocalStorageKey,
             this.favoriteCharacters
         );
+        if (this.selectedCharacter?.id === id) {
+            this.selectedCharacter.isFavorite =
+                !this.selectedCharacter.isFavorite;
+            this.selectedCharacter$.next({ ...this.selectedCharacter });
+        }
         this.characters$.next([...this.characters]);
     }
 
