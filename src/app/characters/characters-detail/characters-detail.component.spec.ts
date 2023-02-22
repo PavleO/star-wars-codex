@@ -4,7 +4,8 @@ import { CharactersDetailComponent } from './characters-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('CharactersDetailComponent', () => {
     let component: CharactersDetailComponent;
@@ -13,7 +14,11 @@ describe('CharactersDetailComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [CharactersDetailComponent],
-            imports: [HttpClientTestingModule, RouterTestingModule],
+            imports: [
+                HttpClientTestingModule,
+                RouterTestingModule,
+                SharedModule,
+            ],
             providers: [
                 {
                     provide: ActivatedRoute,
@@ -22,7 +27,6 @@ describe('CharactersDetailComponent', () => {
                     },
                 },
             ],
-            schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
         fixture = TestBed.createComponent(CharactersDetailComponent);
@@ -32,5 +36,11 @@ describe('CharactersDetailComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('renders spinner component', () => {
+        const { debugElement } = fixture;
+        const spinner = debugElement.query(By.css('app-loading-spinner'));
+        expect(spinner).toBeTruthy();
     });
 });

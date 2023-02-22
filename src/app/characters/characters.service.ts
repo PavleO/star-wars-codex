@@ -9,6 +9,8 @@ import {
 } from 'src/app/characters/character.model';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject, forkJoin } from 'rxjs';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
+import { AppConstants } from 'src/app/shared/app-constants';
 
 @Injectable({
     providedIn: 'root',
@@ -20,12 +22,24 @@ export class CharactersService {
     readonly characters$ = new BehaviorSubject<BasicCharacter[] | null>(null);
     readonly charactersCount$ = new BehaviorSubject<number>(0);
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private localStorageService: LocalStorageService
+    ) {
+        const savedFavorites = localStorageService.getItem<number[]>(
+            AppConstants.favoriteStarWarsCharactersLocalStorageKey
+        );
+        if (savedFavorites) {
+            this.favoriteCharacters = savedFavorites;
+        }
+    }
 
     public getCharacter(id: number) {
         this.selectedCharacter$.next(null);
         this.http
-            .get<CharacterFromServer>(`https://swapi.dev/api/people/${id}`)
+            .get<CharacterFromServer>(
+                `${AppConstants.starWarsCharactersBaseURL}/${id}`
+            )
             .pipe(
                 tap(char => {
                     forkJoin([
@@ -50,9 +64,9 @@ export class CharactersService {
         this.charactersCount$.next(0);
         this.http
             .get<{ results: CharacterFromServer[]; count: number }>(
-                `https://swapi.dev/api/people/?${page ? `page=${page}&` : ''}${
-                    nameFilter ? `search=${nameFilter}` : ''
-                }`
+                `${AppConstants.starWarsCharactersBaseURL}/?${
+                    page ? `page=${page}&` : ''
+                }${nameFilter ? `search=${nameFilter}` : ''}`
             )
             .pipe(
                 tap(response => {
@@ -86,6 +100,10 @@ export class CharactersService {
                 character.isFavorite = true;
             }
         }
+        this.localStorageService.setItem(
+            AppConstants.favoriteStarWarsCharactersLocalStorageKey,
+            this.favoriteCharacters
+        );
         this.characters$.next([...this.characters]);
     }
 

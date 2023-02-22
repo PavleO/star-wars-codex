@@ -56,12 +56,6 @@ describe('CharactersListComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('renders spinner component', () => {
-        const { debugElement } = fixture;
-        const spinner = debugElement.query(By.css('app-loading-spinner'));
-        expect(spinner).toBeTruthy();
-    });
-
     it('renders search input and set its value to equal query param', () => {
         const { debugElement } = fixture;
         const input = debugElement.query(By.css('input'));
