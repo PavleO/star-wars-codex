@@ -1,0 +1,47 @@
+.details-container {
+    color: #eeed18;
+    text-align: center;
+    span {
+        color: #eeed18;
+    }
+
+    .back-btn {
+        color: #2ec3ed;
+    }
+}
+
+.favorite-btn {
+    width: 74px;
+    height: 74px;
+    mat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 50px;
+    }
+
+    .favorite {
+        color: #eeed18;
+    }
+    .not-favorite {
+        color: gray;
+    }
+}
+
+.text-container {
+    transform: perspective(300px) rotateX(30deg);
+}
+
+.films {
+    color: #2ec3ed;
+}
+
+@media screen and (min-width: 320px) {
+    .text-container {
+        font-size: calc(12px + 6 * ((100vw - 320px) / 680));
+    }
+}
+@media screen and (min-width: 1000px) {
+    .text-container {
+        font-size: 22px;
+    }
+}

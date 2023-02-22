@@ -1,32 +1,32 @@
-<mat-form-field class="example-full-width">
-    <mat-label>Search characters by name</mat-label>
-    <input
-        matInput
-        [(ngModel)]="searchTerm"
-        (keydown.enter)="filterCharacters(searchTerm)" />
-    <mat-icon matPrefix (click)="filterCharacters(searchTerm)">search</mat-icon>
-</mat-form-field>
-<mat-list role="list" *ngIf="characters | async as characters; else loading">
-    <mat-list-item
-        (click)="goToDetails(character.id)"
-        role="listitem"
-        *ngFor="let character of characters"
-        >{{ character.name }}
-        <button
-            (click)="toggleFavorite($event, character.id)"
-            mat-icon-button
-            [color]="character.isFavorite ? 'warn' : 'primary'"
-            aria-label="Button for putting character to favorites">
-            <mat-icon>favorite</mat-icon>
-        </button></mat-list-item
-    >
-</mat-list>
+<app-search-input [defaultSearchInput]="searchTerm" label="Search characters by name" (searchTermChange)="filterCharacters($event)"/>
+<div class="container" *ngIf="characters | async as characters; else loading">
+    <div class="list">
+        <div
+            class="list-item"
+            (click)="goToDetails(character.id)"
+            role="listitem"
+            *ngFor="let character of characters; trackBy: trackBy">
+            {{ character.name }}
+            <button
+                (click)="toggleFavorite($event, character.id)"
+                mat-icon-button
+                [color]="character.isFavorite ? 'warn' : 'primary'"
+                aria-label="Button for putting character to favorites">
+                <mat-icon
+                    [class]="character.isFavorite ? 'favorite' : 'not-favorite'"
+                    >$</mat-icon
+                >
+            </button>
+        </div>
+    </div>
+    <mat-paginator
+        class="paginator"
+        [length]="charactersService.charactersCount$ | async"
+        [pageSize]="10"
+        [pageIndex]="pageIndex"
+        (page)="changePage($event)"
+        aria-label="Select characters page" />
+</div>
 <ng-template #loading>
     <app-loading-spinner />
 </ng-template>
-<mat-paginator
-    [length]="charactersService.charactersCount$ | async"
-    [pageSize]="10"
-    [pageIndex]="pageIndex"
-    (page)="changePage($event)"
-    aria-label="Select characters page" />

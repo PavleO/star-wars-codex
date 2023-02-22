@@ -1,0 +1,20 @@
+.search-container {
+  width: 100%;
+  margin-top: 20px;
+  mat-label {
+    color: #4074ad;
+  }
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background: transparent;
+    color: #4074ad;
+    border-bottom: 1px solid #4074ad;
+  }
+  .clear-filter-btn {
+    cursor: pointer;
+    color: #f44336;
+  }
+
+  input {
+    color: #2ec3ed;
+  }
+}

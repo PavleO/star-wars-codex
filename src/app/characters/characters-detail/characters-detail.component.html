@@ -1,12 +1,28 @@
-<div *ngIf="selectedCharacter | async as character; else loading">
-    <h1>{{ character?.name }}</h1>
-    <h2>{{ character?.height }}</h2>
-    <h2>{{ character?.mass }}</h2>
-    <h2>{{ character?.birthYear }}</h2>
-    <h2>{{ character?.gender }}</h2>
-    <h2>{{ character?.homeworld }}</h2>
-    <h2>Films</h2>
-    <h3 *ngFor="let filmTitle of character.films">{{ filmTitle }}</h3>
+<div
+    class="details-container"
+    *ngIf="selectedCharacter | async as character; else loading">
+    <button
+        class="favorite-btn"
+        mat-icon-button
+        [color]="character.isFavorite ? 'warn' : 'primary'"
+        aria-label="Button for putting character to favorites"
+        (click)="toggleFavorite(character.id)">
+        <mat-icon
+                [class]="character.isFavorite ? 'favorite' : 'not-favorite'"
+        >$</mat-icon
+        >
+    </button>
+    <div class="text-container">
+        <h1>{{ character?.name }}</h1>
+        <h2><span>Height - </span>{{ character?.height }}</h2>
+        <h2><span>Mass - </span>{{ character?.mass }}</h2>
+        <h2><span>Birth Year - </span>{{ character?.birthYear }}</h2>
+        <h2><span>Gender - </span>{{ character?.gender }}</h2>
+        <h2><span>Homeworld - </span>{{ character?.homeworld }}</h2>
+        <h2 class="films">== Films ==</h2>
+        <h3 *ngFor="let filmTitle of character.films">{{ filmTitle }}</h3>
+        <button mat-button class="back-btn" (click)="navigateBack()">go back</button>
+    </div>
 </div>
 <ng-template #loading>
     <app-loading-spinner />

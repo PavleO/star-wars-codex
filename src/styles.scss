@@ -10,7 +10,12 @@ html,
 body {
     height: 100%;
 }
-body {
+* {
     margin: 0;
-    font-family: star-jedi, Roboto, 'Helvetica Neue', sans-serif;
+    font-family: star-jedi, Roboto, 'Helvetica Neue', sans-serif !important;
+}
+
+app-characters-list,
+app-characters-detail {
+    max-height: 100%;
 }

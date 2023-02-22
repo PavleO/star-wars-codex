@@ -60,4 +60,8 @@ export class CharactersListComponent implements OnInit {
             queryParams: { name: nameFilter },
         });
     }
+
+    trackBy(_: number, character: BasicCharacter) {
+        return character.id;
+    }
 }

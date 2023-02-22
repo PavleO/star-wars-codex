@@ -1,0 +1,9 @@
+<mat-form-field class="search-container">
+    <mat-label class="label">{{label}}</mat-label>
+    <input
+            matInput
+            [(ngModel)]="searchTerm"
+            (keydown.enter)="search()" />
+    <mat-icon matPrefix (click)="search()">&</mat-icon>
+    <mat-icon *ngIf="!!searchTerm" matSuffix  (click)="clear()">x</mat-icon>
+</mat-form-field>
