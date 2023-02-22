@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { CharactersService } from './characters.service';
+import { CharactersService } from 'src/app/modules/characters/services/characters.service';
 import {
     HttpClientTestingModule,
     HttpTestingController,
 } from '@angular/common/http/testing';
-import { Character } from 'src/app/characters/character.model';
+import { Character } from 'src/app/modules/characters/models/character.model';
 import Expected = jasmine.Expected;
 
 describe('CharactersService', () => {

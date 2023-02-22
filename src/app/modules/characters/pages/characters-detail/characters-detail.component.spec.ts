@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CharactersDetailComponent } from './characters-detail.component';
+import { CharactersDetailComponent } from 'src/app/modules/characters/pages/characters-detail/characters-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';

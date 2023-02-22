@@ -1,19 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HeaderComponent } from './header/header.component';
-import { SearchInputComponent } from './search-input/search-input.component';
+import { SearchInputComponent } from './components/search-input/search-input.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [
-        LoadingSpinnerComponent,
-        HeaderComponent,
-        SearchInputComponent,
-    ],
+    declarations: [LoadingSpinnerComponent, SearchInputComponent],
     imports: [
         CommonModule,
         MatProgressSpinnerModule,
@@ -21,6 +16,6 @@ import { FormsModule } from '@angular/forms';
         MatIconModule,
         FormsModule,
     ],
-    exports: [LoadingSpinnerComponent, HeaderComponent, SearchInputComponent],
+    exports: [LoadingSpinnerComponent, SearchInputComponent],
 })
 export class SharedModule {}

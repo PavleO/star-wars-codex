@@ -4,9 +4,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from 'src/app/core/interceptors/error.interceptor';
 import { GlobalErrorHandlerService } from 'src/app/core/services/global-error-handler.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HeaderComponent } from 'src/app/core/header/header.component';
 
 @NgModule({
-    declarations: [],
+    declarations: [HeaderComponent],
     imports: [CommonModule],
     providers: [
         MatSnackBar,
@@ -17,5 +18,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         },
         { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
     ],
+    exports: [HeaderComponent],
 })
 export class CoreModule {}

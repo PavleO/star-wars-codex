@@ -6,7 +6,7 @@ import {
     CharacterFromServer,
     FilmFromServer,
     PlanetFromServer,
-} from 'src/app/characters/character.model';
+} from 'src/app/modules/characters/models/character.model';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';

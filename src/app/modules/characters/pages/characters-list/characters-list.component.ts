@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CharactersService } from 'src/app/characters/characters.service';
+import { CharactersService } from 'src/app/modules/characters/services/characters.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
-import { BasicCharacter } from 'src/app/characters/character.model';
+import { BasicCharacter } from 'src/app/modules/characters/models/character.model';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

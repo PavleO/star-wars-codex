@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 
-import { CharactersRoutingModule } from './characters-routing.module';
-import { CharactersListComponent } from './characters-list/characters-list.component';
-import { CharactersDetailComponent } from './characters-detail/characters-detail.component';
+import { CharactersRoutingModule } from 'src/app/modules/characters/characters-routing.module';
+import { CharactersListComponent } from 'src/app/modules/characters/pages/characters-list/characters-list.component';
+import { CharactersDetailComponent } from 'src/app/modules/characters/pages/characters-detail/characters-detail.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
