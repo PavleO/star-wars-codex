@@ -1,0 +1,91 @@
+{
+  "configVersion": 1,
+  "timestamp": 1677142107899,
+  "index": "/star-wars-codex/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/star-wars-codex/441.dfb12723c0c5873f.js",
+        "/star-wars-codex/favicon.ico",
+        "/star-wars-codex/index.html",
+        "/star-wars-codex/main.c0784770d3ed6555.js",
+        "/star-wars-codex/manifest.webmanifest",
+        "/star-wars-codex/polyfills.57060a41f0e215f1.js",
+        "/star-wars-codex/runtime.beffb7c023807fc1.js",
+        "/star-wars-codex/styles.84d6579cbcff9492.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/star-wars-codex/assets/fonts/starjedi.woff2",
+        "/star-wars-codex/assets/icons/icon-128x128.png",
+        "/star-wars-codex/assets/icons/icon-144x144.png",
+        "/star-wars-codex/assets/icons/icon-152x152.png",
+        "/star-wars-codex/assets/icons/icon-192x192.png",
+        "/star-wars-codex/assets/icons/icon-384x384.png",
+        "/star-wars-codex/assets/icons/icon-512x512.png",
+        "/star-wars-codex/assets/icons/icon-72x72.png",
+        "/star-wars-codex/assets/icons/icon-96x96.png",
+        "/star-wars-codex/assets/images/starwars-background.jpg",
+        "/star-wars-codex/starjedi.9cc3473d94aca9ad.woff2",
+        "/star-wars-codex/starwars-background.57fa5d66ce55fc9a.jpg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/star-wars-codex/441.dfb12723c0c5873f.js": "01fdb7e4a365a2df5e07183e37340f34c3fe0377",
+    "/star-wars-codex/assets/fonts/starjedi.woff2": "6eb55a67502516b13cd0769b2d6e7842563f6ad8",
+    "/star-wars-codex/assets/icons/icon-128x128.png": "0ba49ad4104e8c91de0591d9ff85cf50fe8ebbbf",
+    "/star-wars-codex/assets/icons/icon-144x144.png": "0961f2b1805932b0556f4d96f78ad58f73ea5756",
+    "/star-wars-codex/assets/icons/icon-152x152.png": "0969e271f0e46efe178066866e952d355a0029a0",
+    "/star-wars-codex/assets/icons/icon-192x192.png": "c82c59855b50e131ae455bb128b3c6745ebb8953",
+    "/star-wars-codex/assets/icons/icon-384x384.png": "72e2b32880693bc76cf2d86e6cead8b3aa6f730d",
+    "/star-wars-codex/assets/icons/icon-512x512.png": "f8df18263872d22e8cde99e8a47ef2750133ea67",
+    "/star-wars-codex/assets/icons/icon-72x72.png": "a041fb1680a454c2798863feee83a7eee05a44d5",
+    "/star-wars-codex/assets/icons/icon-96x96.png": "280353588cf9a8b8238e903c9868f74e8a52a535",
+    "/star-wars-codex/assets/images/starwars-background.jpg": "913a7e28d1335bd23c37f5b2e2dccd8305b5890d",
+    "/star-wars-codex/favicon.ico": "a08d24ef403546948eee2f79428208e5707a8244",
+    "/star-wars-codex/index.html": "80970f950fcee1fcfc87cccfd4168f70a7bc3e2a",
+    "/star-wars-codex/main.c0784770d3ed6555.js": "3d47deaa766902d38f6154dc3419a9bcc6c07a7c",
+    "/star-wars-codex/manifest.webmanifest": "3fa96a916b35991971b6e9723cf48ebe6090c410",
+    "/star-wars-codex/polyfills.57060a41f0e215f1.js": "e995e4cd87659120aecb0c20b7ed2d8603065225",
+    "/star-wars-codex/runtime.beffb7c023807fc1.js": "d9436282d5c6ac5049f4eb697c324aa8c98926a6",
+    "/star-wars-codex/starjedi.9cc3473d94aca9ad.woff2": "6eb55a67502516b13cd0769b2d6e7842563f6ad8",
+    "/star-wars-codex/starwars-background.57fa5d66ce55fc9a.jpg": "913a7e28d1335bd23c37f5b2e2dccd8305b5890d",
+    "/star-wars-codex/styles.84d6579cbcff9492.css": "0ef32741bedeb4d5778f2b396c550be015672404"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
